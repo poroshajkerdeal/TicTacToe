@@ -60,17 +60,16 @@ class MainActivity : AppCompatActivity() {
             player1.add(cellId)
             activePlayer = 2
             autoPlay()
-
+            buSelected.isEnabled = false
         }else{
 
             buSelected.text = "O"
             buSelected.setBackgroundResource(R.color.darkGreen)
             player2.add(cellId)
             activePlayer = 1
-
         }
 
-        buSelected.isEnabled = false
+
 
         checkWinner()
     }
@@ -133,16 +132,16 @@ class MainActivity : AppCompatActivity() {
             winer = 2
         }
 
-       // cross check
- if (player1.contains(1) && player1.contains(5) && player1.contains(9)) {
+        // cross check
+        if (player1.contains(1) && player1.contains(5) && player1.contains(9)) {
             winer = 1
         }
         if (player2.contains(1) && player2.contains(5) && player2.contains(9)) {
             winer = 2
         }
 
-            // reverse cross check
- if (player1.contains(3) && player1.contains(5) && player1.contains(7)) {
+        // reverse cross check
+        if (player1.contains(3) && player1.contains(5) && player1.contains(7)) {
             winer = 1
         }
         if (player2.contains(3) && player2.contains(5) && player2.contains(7)) {
@@ -159,102 +158,96 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "Player 2 win the game", Toast.LENGTH_LONG).show()
             restartGame()
         }
+        if(player1.size == 4 && player2.size == 4){
+            Toast.makeText(this, "Game Drawn! None Win!", Toast.LENGTH_LONG).show()
 
-
+            restartGame()
+        }
     }
 
-    fun autoPlay(){
+        fun autoPlay() {
 
 
             var emptyCells = ArrayList<Int>()
 
-            for( cellId in 1..9){
+            for (cellId in 1..9) {
 
-                if( !(player1.contains(cellId) || player2.contains(cellId))){
+                if (!(player1.contains(cellId) || player2.contains(cellId))) {
                     emptyCells.add(cellId)
                 }
             }
 
 
 
-            if(emptyCells.size==0 || emptyCells.size==1){
-                restartGame()
+            if (emptyCells.size == 0  ) {
+
+
+
             }
 
 
             val r = Random()
-            val randIndex = r.nextInt(emptyCells.size )
+            val randIndex = r.nextInt(emptyCells.size)
             val cellId = emptyCells[randIndex]
 
-            var buSelected:Button?
-            buSelected =  when(cellId){
-                1-> bu1
-                2-> bu2
-                3-> bu3
-                4-> bu4
-                5-> bu5
-                6-> bu6
-                7-> bu7
-                8-> bu8
-                9-> bu9
-                else ->{ bu1}
+            var buSelected: Button?
+            buSelected = when (cellId) {
+                1 -> bu1
+                2 -> bu2
+                3 -> bu3
+                4 -> bu4
+                5 -> bu5
+                6 -> bu6
+                7 -> bu7
+                8 -> bu8
+                9 -> bu9
+                else -> {
+                    bu1
 
-             }
-
-            playGame(cellId, buSelected)
-
-    }
-
-
-
-    var player1WinsCounts = 0
-    var player2WinsCounts = 0
-
-    fun restartGame(){
-
-        activePlayer = 1
-        player1.clear()
-        player2.clear()
-
-        for(cellId in 1..9){
-
-            var buSelected:Button? = when(cellId){
-                1-> bu1
-                2-> bu2
-                3-> bu3
-                4-> bu4
-                5-> bu5
-                6-> bu6
-                7-> bu7
-                8-> bu8
-                9-> bu9
-                else ->{ bu1}
+                }
 
             }
-            buSelected!!.text = ""
-            buSelected!!.setBackgroundResource(R.color.whileBu)
-            buSelected!!.isEnabled = true
+            buSelected.isEnabled = false
+            playGame(cellId, buSelected)
+
         }
 
-         Toast.makeText(this,"Player1: $player1WinsCounts, Player2: $player2WinsCounts", Toast.LENGTH_LONG).show()
+
+        var player1WinsCounts = 0
+        var player2WinsCounts = 0
+
+        fun restartGame() {
+
+            activePlayer = 1
+            player1.clear()
+            player2.clear()
+
+            for (cellId in 1..9) {
+
+                var buSelected: Button? = when (cellId) {
+                    1 -> bu1
+                    2 -> bu2
+                    3 -> bu3
+                    4 -> bu4
+                    5 -> bu5
+                    6 -> bu6
+                    7 -> bu7
+                    8 -> bu8
+                    9 -> bu9
+                    else -> {
+                        bu1
+                    }
+
+                }
+                buSelected!!.text = ""
+                buSelected!!.setBackgroundResource(R.color.whileBu)
+                buSelected!!.isEnabled = true
+            }
+
+            Toast.makeText(this, "Player1: $player1WinsCounts, Player2: $player2WinsCounts", Toast.LENGTH_LONG).show()
+
+
+        }
 
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-}
